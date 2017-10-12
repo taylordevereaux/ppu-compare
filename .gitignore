@@ -1,5 +1,11 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
+# local environment
+/.vscode/chrome
+
+# auto-generated
+/css
+
 # dependencies
 /node_modules
 
