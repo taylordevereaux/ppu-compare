@@ -6,4 +6,5 @@ body {
 .unit-entry-list {
   list-style-type: none; }
   .unit-entry-list .unit-entry {
-    padding: 10px 0; }
+    padding: 10px 0;
+    color: inherit; }
