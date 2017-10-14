@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import UnitEntryList from './app/UnitEntryList';
+import UnitEntryList from './components/UnitEntryList/UnitEntryList';
 
 class App extends Component {
   render() {

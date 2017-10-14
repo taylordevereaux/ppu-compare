@@ -4,7 +4,7 @@
 /.vscode/chrome
 
 # auto-generated
-/css
+/src/**/*.css
 
 # dependencies
 /node_modules
