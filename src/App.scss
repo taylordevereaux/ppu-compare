@@ -1,5 +1,6 @@
-/* .App {
-} */
+.App {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
@@ -13,11 +14,13 @@
   padding: 20px;
   color: white;
 }
+.App-header > a:hover {
+  text-decoration: none;
+}
 
 .App-title {
   font-size: 1.5em;
 }
-
 .App-intro {
   font-size: large;
 }
