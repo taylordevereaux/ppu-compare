@@ -1,77 +1,49 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import './App.css';
+import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
+import { Container, Row, Col } from 'reactstrap';
+// Components.
 import UnitEntryList from './components/UnitEntryList/UnitEntryList';
-import UnitEntry from './components/UnitEntryList/UnitEntry/UnitEntry';
-
-window.Entries= [{
-  id: 1,
-  price: 14.99,
-  units: 2,
-  description: "SIlk Almond Milk 6 pack",
-  location: "Sobeys"
-}, {
-  id: 2,
-  price: 17.23,
-  units: 8,
-  location: "Super Store"
-}];
+import UnitEntry from './components/UnitEntry/UnitEntry';
+// Utilities
+import DataSource from './utilities/DataSource';
+// Styles
+import './App.css';
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      entries: window.Entries
-    };
-  }
-  // handleAdd = (e) => {
-  //   const entries = this.state.entries;
-  //   const newID = ids.length
-  //     ? (ids.reduce(function (a, next) {
-  //       return Math.max(a, next);
-  //     }) + 1)
-  //     : 1;
-
-  //   this.setState((prevState) => ({
-  //     ids: [...prevState.ids, newID]
-  //   }));
-  // }
-
-  handleDone = (entry) => {
-    this.setState((prevState, props) => {
-      let entries = prevState.entries;
-      let existing = entries.find(x => x.id === entry.id);
-      if (!existing) {
-        entries.push(entry);
-      }
-      return {
-        entries: entry
-      };
-    });
-  }
-
-  find = (id) => {
-    console.log('Finding Entry');
-    return this.state.entries.find(x => x.id === parseInt(id));
   }
 
   render() {
-    const entries = this.state.entries;
     return (
       <Router>
         <div className="App">
-          <header className="App-header">
+          <header className="App-header fixed-top">
             <Link to="/">
-              <h1 className="App-title text-white">ppu-compare</h1>
+              <h1 className="App-title text-white h2 m-0">ppu-compare</h1>
             </Link>
           </header>
 
-          <Route exact path="/" render={({ match, history }) => (
-            <UnitEntryList entries={entries} match={match} history={history} />
-          )} />
-          <Route path="/Entry/:id?" render={({ match, history }) => (
-            <UnitEntry {...this.find(match.params.id)} history={history}  />
-          )} />
+          <Container fluid className="App-content justify-content-center">
+            <Row className="justify-content-center">
+              <Col xs={12} sm={12} md={10} lg={8} xl={6}>
+
+                <Route exact path="/" render={({ match, history }) => {
+                  const entries = DataSource.getEntries();
+                  return !!entries.length ? (
+                    <UnitEntryList entries={entries} match={match} history={history} />
+                  ) : <Redirect to="/Entry/" />
+                }} />
+                <Route path="/Entry/:id?" render={({ match, history }) => {
+                  let entry = DataSource.getEntry(match.params.id);
+                  return (
+                    <UnitEntry {...entry } history={history} />
+                  )
+                }} />
+
+              </Col>
+            </Row>
+          </Container>
         </div>
       </Router>
     );

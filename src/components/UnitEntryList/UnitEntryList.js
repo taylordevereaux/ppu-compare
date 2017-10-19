@@ -1,23 +1,20 @@
 import React, { Component } from 'react';
 import UnitEntryListItem from './UnitEntryListItem/UnitEntryListItem';
-import { Button, Container, Row, Col, ListGroup, ListGroupItem } from 'reactstrap';
+import { Button, ListGroup } from 'reactstrap';
 import { Link } from 'react-router-dom';
-// import { calculatePPU } from '../../utilities/calculatePPU';
+import UnitSortDropDown from './UnitSortDropDown/UnitSortDropDown'
+import { calculatePPU } from '../../utilities/calculatePPU';
 import './UnitEntryList.css';
 
 class UnitEntryList extends Component {
-  // handleAdd = (e) => {
-  //     const entries = this.props.entries;
-  //     const newID = ids.length 
-  //     ? (ids.reduce(function(a, next) {
-  //             return Math.max(a, next);
-  //         }) + 1)
-  //     : 1;
 
-  //     this.setState((prevState) => ({
-  //         ids: [...prevState.ids, newID]
-  //     }));
-  // }
+  constructor(props) {
+    super(props)
+  
+    this.state = {
+       sortKey: 'ppu'
+    }
+  }
 
   handleRemove = (removeId) => {
     this.setState((prevState) => ({
@@ -25,40 +22,35 @@ class UnitEntryList extends Component {
     }));
   }
 
+  handleSort = (sortKey) => {
+    this.setState({sortKey});
+  }
+
   render() {
     const entries = this.props.entries;
+    const sortKey = this.state.sortKey;
+
+    const list = entries
+      .map(x => Object.assign(x, { ppu: calculatePPU(x.price, x.units) }))
+      .sort((a,b) => a[sortKey] < b[sortKey] ? -1 : a[sortKey] > b[sortKey] ? 1 : 0)
+      .map((entry) =>  <UnitEntryListItem key={entry.id.toString()} {...entry} history={this.props.history} onRemove={this.handleRemove} />);
+
     return (
-      <Container fluid={true} className="px-0">
-        <Row>
-          <Col>
-            <div class="btn-group">
-              <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                PPU
-              </button>
-              <div class="dropdown-menu">
-                <a class="dropdown-item" href="#?PPU">PPU</a>
-                <a class="dropdown-item" href="#?Price">Price</a>
-                <a class="dropdown-item" href="#?Units">Units</a>
-                <a class="dropdown-item" href="#?Location">Location</a>
-              </div>
-            </div>
-          </Col>
-        </Row>
-        <Row className="justify-content-center">
-          <Col sm="12" md="12" lg={{ size: 8, offset: 1 }} xl={{ size: 6, offset: 2 }} >
-            <ListGroup>
-              {entries.map((entry) =>
-                <UnitEntryListItem key={entry.id.toString()} {...entry} history={this.props.history} onRemove={this.handleRemove} />
-              )}
-            </ListGroup>
-          </Col>
-        </Row>
-        <Row className="justify-content-center">
+      <div>
+        <div className="d-flex justify-content-end">
+          <UnitSortDropDown value={sortKey} onChange={this.handleSort} />
+        </div>
+        <div className="d-flex flex-column">
+          <ListGroup>
+            {list}
+          </ListGroup>
+        </div>
+        <div className="d-flex justify-content-center">
           <Link to="/Entry/">
             <Button type="button" value="submit" color="link">Add New Entry</Button>
           </Link>
-        </Row>
-      </Container>
+        </div>
+      </div>
     );
   }
 }
