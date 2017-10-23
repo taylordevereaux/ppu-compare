@@ -27,16 +27,15 @@ class DataSource {
     return DataSource.getEntries().find(x => x.id === parseInt(id));
   }
   static pushEntry(entry) {
-
+    let entries = DataSource.getEntries();
     if (!!entry.id) {
-      let existingEntry = DataSource.getEntry(entry.id);
+      let existingEntry = entries.find(x => x.id === entry.id);
       existingEntry = Object.assign(existingEntry, entry);
     } else {
-      let entries = DataSource.getEntries();
       entry.id = getNewId(entries);
       entries.push(entry);
-      setEntries(entries);
     }
+    setEntries(entries);
   }
   static deleteEntry(id) {
     let entries = DataSource.getEntries();

@@ -1,17 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import registerServiceWorker from './utilities/registerServiceWorker';
+// Css
 import '../node_modules/bootstrap/dist/css/bootstrap.css';
 import './index.css';
+import './theme/dist/toolkit-inverse.css';
+// Utils
+import registerServiceWorker from './utilities/registerServiceWorker';
+// Javascript
 import jquery from "jquery";
 import popper from 'popper.js';
-// This is required to set the Jquery window variables.
-// Needed for bootstrap.
-window.$ = window.jQuery = jquery;
-window.Popper = popper;
-const bootstrap = require('bootstrap');
+import tether from 'tether';
+// import theme from './theme/dist/toolkit.js';
+var jQuery = window.$ = window.jQuery = jquery;
+var Popper = window.Popper = popper;
+var Tether = window.Tether = tether;
 
+ var theme = require('./theme/dist/toolkit.js');
 
 ReactDOM.render(<App />, document.getElementById('root'));
 registerServiceWorker();

@@ -4,6 +4,7 @@ import { Container, Row, Col } from 'reactstrap';
 // Components.
 import UnitEntryList from './components/UnitEntryList/UnitEntryList';
 import UnitEntry from './components/UnitEntry/UnitEntry';
+import AppHeader from './components/AppHeader/AppHeader';
 // Utilities
 import DataSource from './utilities/DataSource';
 // Styles
@@ -18,12 +19,7 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-          <header className="App-header fixed-top">
-            <Link to="/">
-              <h1 className="App-title text-white h2 m-0">ppu-compare</h1>
-            </Link>
-          </header>
-
+          <AppHeader title="Pricey" />
           <Container fluid className="App-content justify-content-center">
             <Row className="justify-content-center">
               <Col xs={12} sm={12} md={10} lg={8} xl={6}>

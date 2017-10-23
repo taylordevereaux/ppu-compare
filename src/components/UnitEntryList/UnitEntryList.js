@@ -3,7 +3,7 @@ import UnitEntryListItem from './UnitEntryListItem/UnitEntryListItem';
 import { Button, ListGroup } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import UnitSortDropDown from './UnitSortDropDown/UnitSortDropDown'
-import { calculatePPU } from '../../utilities/calculatePPU';
+import calculatePPU from '../../utilities/calculatePPU';
 import './UnitEntryList.css';
 
 class UnitEntryList extends Component {

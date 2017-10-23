@@ -18,7 +18,7 @@ import {
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 // Utilities
-import { calculatePPU } from '../../utilities/calculatePPU';
+import calculatePPU from '../../utilities/calculatePPU';
 import DataSource from '../../utilities/DataSource';
 // Styless
 import './UnitEntry.css';
@@ -213,12 +213,12 @@ class UnitEntry extends Component {
         <FormGroup row className="justify-content-right">
           {!!id &&
             <Col>
-              <Button type="button" color="primary" outline onClick={this.handleDelete}>Delete</Button>
+              <Button type="button" color="danger" outline onClick={this.handleDelete}>Delete</Button>
             </Col> 
           }
           <Col className="col-auto ml-auto unit-entry-actions">
-            <Button type="button" color="secondary" onClick={this.handleCancel}>Cancel</Button>
-            <Button type="submit" color="primary" className="ml-3">Done</Button>
+            <Button type="button" color="secondary" outline onClick={this.handleCancel}>Cancel</Button>
+            <Button type="submit" color="primary" outline className="ml-3">Done</Button>
           </Col>
         </FormGroup>
       </Form>

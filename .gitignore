@@ -15,6 +15,12 @@
 # production
 /build
 
+# theme project
+/theme/node_modules
+/theme/dist
+/theme/docs
+/src/theme/dist
+
 # misc
 .DS_Store
 .env.local
