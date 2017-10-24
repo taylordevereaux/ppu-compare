@@ -1,6 +1,6 @@
 {
-  "short_name": "ppu-compare",
-  "name": "Price Per Unit Compare",
+  "short_name": "Pricey",
+  "name": "Pricey: A Price Per Unit Compare Tool",
   "icons": [
     {
       "src": "favicon.ico",
@@ -10,6 +10,6 @@
   ],
   "start_url": "./index.html",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#252830",
+  "background_color": "#252830"
 }

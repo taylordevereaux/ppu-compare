@@ -18,8 +18,8 @@ import {
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 // Utilities
-import calculatePPU from '../../utilities/calculatePPU';
-import DataSource from '../../utilities/DataSource';
+import calculatePPU from '../../utils/calculatePPU';
+import DataSource from '../../utils/DataSource';
 // Styless
 import './UnitEntry.css';
 

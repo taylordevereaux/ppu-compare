@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
-import UnitEntryListItem from './UnitEntryListItem/UnitEntryListItem';
 import { Button, ListGroup } from 'reactstrap';
 import { Link } from 'react-router-dom';
+// Components
 import UnitSortDropDown from './UnitSortDropDown/UnitSortDropDown'
-import calculatePPU from '../../utilities/calculatePPU';
+import UnitEntryListItem from './UnitEntryListItem/UnitEntryListItem';
+import List from '../List/List';
+import LinkButton from '../LinkButton/LinkButton';
+// Utils
+import calculatePPU from '../../utils/calculatePPU';
+// Styles
 import './UnitEntryList.css';
 
 class UnitEntryList extends Component {
@@ -16,12 +21,6 @@ class UnitEntryList extends Component {
     }
   }
 
-  handleRemove = (removeId) => {
-    this.setState((prevState) => ({
-      ids: prevState.ids.filter((id) => { return id !== removeId })
-    }));
-  }
-
   handleSort = (sortKey) => {
     this.setState({sortKey});
   }
@@ -30,27 +29,17 @@ class UnitEntryList extends Component {
     const entries = this.props.entries;
     const sortKey = this.state.sortKey;
 
-    const list = entries
+    const listItems = entries
       .map(x => Object.assign(x, { ppu: calculatePPU(x.price, x.units) }))
-      .sort((a,b) => a[sortKey] < b[sortKey] ? -1 : a[sortKey] > b[sortKey] ? 1 : 0)
-      .map((entry) =>  <UnitEntryListItem key={entry.id.toString()} {...entry} history={this.props.history} onRemove={this.handleRemove} />);
+      .sort((a, b) => a[sortKey] < b[sortKey] ? -1 : a[sortKey] > b[sortKey] ? 1 : 0)
+      .map((entry) => <UnitEntryListItem key={entry.id.toString()} {...entry} history={this.props.history}/>);
+
+    const header = (<UnitSortDropDown value={sortKey} onChange={this.handleSort} />);
+
+    const footer = (<LinkButton to="/Entry/" text="Add Compare Item" />);
 
     return (
-      <div>
-        <div className="d-flex justify-content-end">
-          <UnitSortDropDown value={sortKey} onChange={this.handleSort} />
-        </div>
-        <div className="d-flex flex-column">
-          <ListGroup>
-            {list}
-          </ListGroup>
-        </div>
-        <div className="d-flex justify-content-center">
-          <Link to="/Entry/">
-            <Button type="button" value="submit" color="link">Add New Entry</Button>
-          </Link>
-        </div>
-      </div>
+      <List header={header} listItems={listItems} footer={footer} emptyMessage="No items to compare, try adding a new one." />
     );
   }
 }

@@ -6,7 +6,7 @@ import '../node_modules/bootstrap/dist/css/bootstrap.css';
 import './index.css';
 import './theme/dist/toolkit-inverse.css';
 // Utils
-import registerServiceWorker from './utilities/registerServiceWorker';
+import registerServiceWorker from './utils/registerServiceWorker';
 // Javascript
 import jquery from "jquery";
 import popper from 'popper.js';

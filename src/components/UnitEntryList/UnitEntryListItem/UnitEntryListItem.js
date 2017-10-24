@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { ListGroupItem, ListGroupItemText, Container, Row, Col } from 'reactstrap';
+import { ListGroupItem, Container, Row, Col } from 'reactstrap';
 
 // Components
 import StatCard from '../../StatCard/StatCard';
@@ -9,12 +9,9 @@ import StatCard from '../../StatCard/StatCard';
 import accounting from 'accounting-js';
 import classnames from 'classnames'
 
-// import { calculatePPU } from '../../../utilities/calculatePPU';
+// import { calculatePPU } from '../../../utils/calculatePPU';
 
 class UnitEntryListItem extends Component {
-  // constructor(props) {
-  //     super(props);
-  // }
 
   handleClick = (e) => {
     e.preventDefault();
