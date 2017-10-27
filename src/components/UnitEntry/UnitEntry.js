@@ -17,6 +17,7 @@ import {
 } from 'reactstrap';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
+import classnames from 'classnames';
 // Utilities
 import calculatePPU from '../../utils/calculatePPU';
 import DataSource from '../../utils/DataSource';
@@ -133,13 +134,29 @@ class UnitEntry extends Component {
       xl:  12
     }
 
-    function Header() {
+    function ColWithSettings(props) {
+      return (
+        <Col {...colSettings} className={classnames(props.className)} >
+          {props.children}
+        </Col>
+      );
+    }
+
+    function FormGroupRow(props) {
       return (
         <FormGroup row className="justify-content-center">
-          <Col {...colSettings} className="mt-2" >
-            <div className="display-4 text-center">${ppu}</div>
-          </Col>
+          {props.children}
         </FormGroup>
+      );
+    }
+
+    function Header() {
+      return (
+        <FormGroupRow>
+          <ColWithSettings className="mt-2" >
+            <div className="display-4 text-center">${ppu}</div>
+          </ColWithSettings>
+        </FormGroupRow>
       );
     }
 
@@ -156,51 +173,60 @@ class UnitEntry extends Component {
       );
     }
 
+    function PriceInput(props) {
+      return (
+        <ColWithSettings>
+          <Label for="price">Price of Product</Label>
+          <InputGroup>
+            <InputGroupAddon>$</InputGroupAddon>
+            <Input type="number" name="price" value={props.value}
+              placeholder="enter the price"
+              onChange={props.onChange}
+              valid={props.valid} />
+          </InputGroup>
+          <div className="invalid-feedback">
+            Please provide a price for the item.
+          </div>
+        </ColWithSettings>
+      );
+    }
+
+    function UnitInput(props) {
+      return (
+        <ColWithSettings>
+          <Label for="units">Number of Units</Label>
+          <InputGroup>
+            <InputGroupAddon>#</InputGroupAddon>
+            <Input type="number" name="units" value={props.value}
+              placeholder="enter the units"
+              onChange={props.onChange}
+              valid={props.valid} />
+            <InputGroupButton>
+              <UnitDropDown {...measurement} onToggle={props.onToggle} />
+            </InputGroupButton>
+          </InputGroup>
+        </ColWithSettings>
+      );
+    }
+
+
     const form = (
       <Form className="container-fluid unit-entry pt-2" onSubmit={this.handleSubmit}>
         <Header />
-        {/* Price of Product */}
-        <FormGroup row className="justify-content-center">
-          <Col {...colSettings} >
-            <Label for="price">Price of Product</Label>
-            <InputGroup>
-              <InputGroupAddon>$</InputGroupAddon>
-              <Input type="number" name="price" value={price}
-                placeholder="enter the price"
-                onChange={this.handleInputsChange}
-                valid={this.state.errors.price ? false : null} />
-            </InputGroup>
-            <div className="invalid-feedback">
-              Please provide a price for the item.
-            </div>
-          </Col>
-        </FormGroup>
-        {/* Number of Units */}
-        <FormGroup row className="justify-content-center">
-          <Col {...colSettings}>
-            <Label for="price">Number of Units</Label>
-            <InputGroup>
-              <InputGroupAddon>#</InputGroupAddon>
-              <Input type="number" name="units" value={units}
-                placeholder="enter the units"
-                onChange={this.handleInputsChange}
-                valid={this.state.errors.units ? false : null} />
-                {/* Excluding measurement for now. */}
-              {/* <InputGroupButton>
-                <UnitDropDown {...measurement} onToggle={this.handleToggle} />
-              </InputGroupButton> */}
-            </InputGroup>
-          </Col>
-        </FormGroup>
-        {/* Location of Product */}
-        <FormGroup row className="justify-content-center">
-          <Col {...colSettings}>
+        <FormGroupRow>
+          <PriceInput value={price} onChange={this.handleInputsChange} valid={this.state.errors.price ? false : null} />
+        </FormGroupRow>
+        <FormGroupRow>
+          <UnitInput value={units} onChange={this.handleInputsChange} valid={this.state.errors.units ? false : null} onToggle={this.handleToggle} />
+        </FormGroupRow>
+        <FormGroupRow>
+          <ColWithSettings>
             <Label for="location">Location of Product</Label>
             <Input type="text" name="location" value={location}
               placeholder="enter the location"
               onChange={this.handleInputsChange} />
-          </Col>
-        </FormGroup>
+          </ColWithSettings>
+        </FormGroupRow>
         <FormGroup row className="justify-content-center">
           <Col {...colSettings}>
             <Label for="description">Additional Details</Label>

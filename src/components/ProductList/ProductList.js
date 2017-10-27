@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { ListGroup } from 'reactstrap';
 // Components
-import List from '../List/List';
+import ListContainer from '../ListContainer/ListContainer';
 import LinkButton from '../LinkButton/LinkButton';
 import ProductListItem from './ProductListItem/ProductListItem';
 
@@ -21,7 +21,7 @@ export default class ProductList extends Component {
     const footer = (<LinkButton to="/Product/Details" text="New Compare List" />);
 
     return (
-      <List listItems={listItems} footer={footer} emptyMessage="No product compare lists, try adding a new one." />
+      <ListContainer listItems={listItems} footer={footer} emptyMessage="No product compare lists, try adding a new one." />
     )
   }
 }

@@ -37,7 +37,7 @@ class App extends Component {
                   return (<UnitEntryList entries={entries} match={match} history={history} />)
                 }} />
 
-                <Route path="/Entry/:id?" render={({ match, history }) => {
+                <Route exact path="/Entry/:id?" render={({ match, history }) => {
                   let entry = DataSource.getEntry(match.params.id);
                   return (<UnitEntry {...entry } history={history} />)
                 }} />

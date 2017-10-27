@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import {ListGroup} from 'reactstrap';
 
-export default class List extends Component {
+export default class ListContainer extends Component {
   static propTypes = {
     header: PropTypes.Component,
     listItems: PropTypes.Component,

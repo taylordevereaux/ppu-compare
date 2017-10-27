@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 // Components
 import UnitSortDropDown from './UnitSortDropDown/UnitSortDropDown'
 import UnitEntryListItem from './UnitEntryListItem/UnitEntryListItem';
-import List from '../List/List';
+import ListContainer from '../ListContainer/ListContainer';
 import LinkButton from '../LinkButton/LinkButton';
 // Utils
 import calculatePPU from '../../utils/calculatePPU';
@@ -39,7 +39,7 @@ class UnitEntryList extends Component {
     const footer = (<LinkButton to="/Entry/" text="Add Compare Item" />);
 
     return (
-      <List header={header} listItems={listItems} footer={footer} emptyMessage="No items to compare, try adding a new one." />
+      <ListContainer header={header} listItems={listItems} footer={footer} emptyMessage="No items to compare, try adding a new one." />
     );
   }
 }
