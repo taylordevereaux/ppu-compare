@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-export default class ProductDetails extends Component {
+// Components
+
+export default class ProductView extends Component {
   static propTypes = {
     id: PropTypes.string,
     name: PropTypes.string,
@@ -11,7 +13,7 @@ export default class ProductDetails extends Component {
   render() {
     return (
       <div>
-        
+        testing
       </div>
     )
   }

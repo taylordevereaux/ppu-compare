@@ -6,8 +6,10 @@ import UnitEntryList from './components/UnitEntryList/UnitEntryList';
 import UnitEntry from './components/UnitEntry/UnitEntry';
 import AppHeader from './components/AppHeader/AppHeader';
 import ProductList from './components/ProductList/ProductList';
+import ProductView from './components/Product/ProductView/ProductView';
+import ProductViewEdit from './components/Product/ProductViewEdit/ProductViewEdit';
 //Apollo
-import { ApolloClient, gql, graphql, ApolloProvider} from 'react-apollo';
+// import { ApolloClient, gql, graphql, ApolloProvider} from 'react-apollo';
 // Utilities
 import DataSource from './utils/DataSource';
 // Styles
@@ -33,8 +35,14 @@ class App extends Component {
                 }} />
 
                 <Route exact path="/Product/:id" render={({ match, history }) => {
-                  const entries = DataSource.getEntries();
-                  return (<UnitEntryList entries={entries} match={match} history={history} />)
+                  let product = DataSource.getProduct(match.params.id);
+                  return (<ProductView {...product} history={history} />)
+                }} />
+
+                
+                <Route exact path="/Product/Details/:id?" render={({ match, history }) => {
+                  let product = DataSource.getProduct(match.params.id);
+                  return (<ProductViewEdit  {...product} history={history} />)
                 }} />
 
                 <Route exact path="/Entry/:id?" render={({ match, history }) => {

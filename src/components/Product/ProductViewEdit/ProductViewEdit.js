@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-export default class ProductDetails extends Component {
+// Components
+import ProductForm from '../ProductForm/ProductForm';
+
+export default class ProductViewEdit extends Component {
   static propTypes = {
     id: PropTypes.string,
     name: PropTypes.string,
@@ -11,7 +14,7 @@ export default class ProductDetails extends Component {
   render() {
     return (
       <div>
-        
+        <ProductForm id={this.props.id} name={this.props.name} history={this.props.history} />
       </div>
     )
   }
