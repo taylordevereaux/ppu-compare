@@ -13,7 +13,10 @@ import {
   ButtonDropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem
+  DropdownItem,
+  NavItem,
+  Nav,
+  NavLink
 } from 'reactstrap';
 
 export default class ProductForm extends Component {
@@ -38,11 +41,35 @@ export default class ProductForm extends Component {
           </div>
         </div>);
     };
+    
+    function UnitTypeOption(props) {
+      const active = props.active;// ? true : false;
+      return (
+        <NavLink className="text-white" href="#" active={active}>{props.children}</NavLink>
+      );
+    }
+
+    function UnitType(props) {
+      return (
+      <div className="hr-divider">
+        <Nav className="nav-pills hr-divider-content hr-divider-nav ">
+          <NavItem>
+            <UnitTypeOption active>Volumne</UnitTypeOption>
+          </NavItem>
+          <NavItem>
+            <UnitTypeOption >Mass</UnitTypeOption>
+          </NavItem>
+        </Nav>
+      </div>);
+    }
 
     return (
-      <Form>
+      <Form className="container-fluid pt-2">
         <FormGroup>
           <NameInput name={name}  />
+        </FormGroup>
+        <FormGroup>
+          <UnitType  />
         </FormGroup>
       </Form>
     )

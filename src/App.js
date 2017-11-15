@@ -6,8 +6,7 @@ import UnitEntryList from './components/UnitEntryList/UnitEntryList';
 import UnitEntry from './components/UnitEntry/UnitEntry';
 import AppHeader from './components/AppHeader/AppHeader';
 import ProductList from './components/ProductList/ProductList';
-import ProductView from './components/Product/ProductView/ProductView';
-import ProductViewEdit from './components/Product/ProductViewEdit/ProductViewEdit';
+import Product from './components/Product/Product';
 //Apollo
 // import { ApolloClient, gql, graphql, ApolloProvider} from 'react-apollo';
 // Utilities
@@ -34,20 +33,9 @@ class App extends Component {
                   return (<ProductList products={items} match={match} history={history} />)
                 }} />
 
-                <Route exact path="/Product/:id" render={({ match, history }) => {
+                <Route path="/Product" render={({ match, history }) => {
                   let product = DataSource.getProduct(match.params.id);
-                  return (<ProductView {...product} history={history} />)
-                }} />
-
-                
-                <Route exact path="/Product/Details/:id?" render={({ match, history }) => {
-                  let product = DataSource.getProduct(match.params.id);
-                  return (<ProductViewEdit  {...product} history={history} />)
-                }} />
-
-                <Route exact path="/Entry/:id?" render={({ match, history }) => {
-                  let entry = DataSource.getEntry(match.params.id);
-                  return (<UnitEntry {...entry } history={history} />)
+                  return (<Product {...product} history={history} />)
                 }} />
 
               </Col>
