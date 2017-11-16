@@ -32,6 +32,20 @@ function removeItem(id, getData, setData) {
 }
 // Gets an collection from the cach.
 function getCollection(key) {
+  // TODO: Remove this
+  if (key == "entries") 
+    return [{ 
+        id: 1, 
+        price: 14.99, 
+        units: 123, 
+        description: "SIlk Almond Milk 6 pack", 
+        location: "Sobeys" 
+    },{ 
+        id: 2, 
+        price: 17.23, 
+        units: 899, 
+        location: "Super Store" 
+    }] ;
   let cache = JSON.parse(localStorage.getItem(key)) || [];
   return cache;
 }
@@ -40,7 +54,7 @@ function setItem(key, item) {
 }
 
 // Gets the Entries
-function getEntries(id) {
+function getEntries() {
   return getCollection('entries');
 }
 

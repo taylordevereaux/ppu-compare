@@ -18,7 +18,7 @@ export default class ProductList extends Component {
     const listItems = products
       .map((product) =>  <ProductListItem key={product.id.toString()} {...product} history={this.props.history} onRemove={this.handleRemove} />);
 
-    const footer = (<LinkButton to="/Product/Details" text="New Compare List" />);
+    const footer = (<LinkButton to="/Product/New" text="New Compare List" />);
 
     return (
       <ListContainer listItems={listItems} footer={footer} emptyMessage="No product compare lists, try adding a new one." />
