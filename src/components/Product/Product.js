@@ -36,9 +36,9 @@ export default class Product extends Component {
     return (
       <div>
 
-        <Route exact path="/Product/New" component={ (match, history) => <ProductForm history={history} />} />
+        <Route exact path="/Product/New" render={({ match, history }) => <ProductForm history={history} />} />
         
-        <Route exact path="/Product/View/:id" component={ (match, history) => {
+        <Route exact path="/Product/View/:id" render={({ match, history })  => {
           let product = DataSource.getProduct(match.params.id);
           return (<ProductDetails {...product} history={history} />)
         }} />
@@ -48,7 +48,7 @@ export default class Product extends Component {
           return (<ProductForm  {...product} history={history}  />)
         }} />
         
-        <Route exact path="/Product/New" component={ (match, history) => {
+        <Route exact path="/Product/New" render={({ match, history })  => {
           let entries = DataSource.getEntries();
           return (<UnitEntryList entries={entries} history={history} />);
           {/* return (<UnitEntry {...entries[0]} history={history} />); */}

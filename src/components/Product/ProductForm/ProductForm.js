@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { Redirect } from 'react-router-dom';
 import {
   InputGroup,
   InputGroupAddon,
@@ -12,6 +13,7 @@ import {
   Label,
   ButtonDropdown,
   DropdownToggle,
+  Dropdown,
   DropdownMenu,
   DropdownItem,
   NavItem,
@@ -21,6 +23,26 @@ import {
 
 // Utilities
 import DataSource from '../../../utils/DataSource';
+
+
+//#region Static Data
+const UnitLists= ["volumn", "mass"];
+UnitLists["volumn"] = ["Litre (l)"
+  , "Millilitre (ml)"
+  , "Fluid ounce (oz. fl)"
+  , "Cup (cup)"
+  , "Tablespoon (tbsp)"
+  , "Teaspoon (tsp)"
+  , "Pint (pt)"
+  , "Quart (qt)"
+  , "Gallon (gal)"
+  ];
+  UnitLists["mass"] = ["Kilogram (kg)"
+  , "Grams (g)"
+  , "Pound (lb)"
+  , "Ounce (oz)"
+  ];
+//#endregion
 
 //#region Inline Functions
 function NameInput(props) {
@@ -58,41 +80,47 @@ function UnitType(props) {
     </Nav>
   </div>);
 }
+
+function UnitTypeSelect(props) {
+  const items = props.items.map(e => (<option value={e}>{e}</option>));  
+  return (
+    <Input type="select" name="unitOfMeasurement" value={props.value} onChange={props.onChange}>
+      {items}
+    </Input>
+  );
+}
 // #endregion
 
 export default class ProductForm extends Component {
   // Prop Types
   static propTypes = {
-    id: PropTypes.string,
-    name: PropTypes.string,
-    measurementType: PropTypes.string,
-    unitOfMeasurement: PropTypes.string,
+    product: PropTypes.shape({
+      id: PropTypes.string,
+      name: PropTypes.string,
+      measurementType: PropTypes.string,
+      unitOfMeasurement: PropTypes.string
+    }),
+    done: PropTypes.bool,
+    history: PropTypes.object.isRequired
   }
   // Default Props
   static defaultProps = {
-    measurementType: "volumn",
-    unitOfMeasurement: "litres"
+    product: {
+      id: "",
+      name: "",
+      measurementType: "volumn",
+      unitOfMeasurement: "Litre (l)"
+    },
+    done: false
   }
   // Constructor
   constructor (props) {
     super(props);
     this.state = {
-      id: props.id,
-      name: props.name,
-      measurementType: props.measurementType,
-      unitOfMeasurement: props.unitOfMeasurement
+      product: props.product
     };
   }
-
-  //#region Get Helpers
-  getProduct() {
-    return {
-      id: parseInt(this.state.id),
-      name: this.state.name,
-      measurementType: this.state.measurementType,
-      unitOfMeasurement: this.state.unitOfMeasurement
-    };
-  }
+  //#region  Helpers
 
   getErrors(product) {
     let errors = {};
@@ -101,20 +129,24 @@ export default class ProductForm extends Component {
     if (product.unitOfMeasurement === "") errors.unitOfMeasurement = true;
     return errors;
   }
+  // SEts the property of the product to state.
+  setProductState(prop) {
+    this.setState((prevState, props) => Object.assign(prevState.product, prop));
+  }
   //#endregion
 
   // #region Event handlers
-  handleMeasurementTypeChange = (e) => {
-    const value = e.target.attributes["value"].value;
-    if (value != this.state.measurementType) {
-      this.setState({measurementType:value});
-    }
-  }
-
   handleInputChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
-    this.setState({[name]:value});
+    this.setProductState({[name]:value});
+  }
+
+  handleMeasurementTypeChange = (e) => {
+    const value = e.target.attributes["value"].value;
+    if (value != this.state.measurementType) {
+      this.setProductState({measurementType:value, unitOfMeasurement: UnitLists[value][0]});
+    }
   }
 
   handleDelete = (e) => {
@@ -124,6 +156,7 @@ export default class ProductForm extends Component {
 
   handleCancel = (e) => {
     e.preventDefault();
+    console.log(JSON.stringify(this.props.history));
     this.props.history.goBack();
   }
   
@@ -144,19 +177,25 @@ export default class ProductForm extends Component {
   //#endregion
 
   render() {
-    const name = this.state.name;
-    const measurementType = this.state.measurementType;
-    const id = this.state.id;
-    return (
+    const product = this.state.product;
+    const units = UnitLists[product.measurementType]// === "volumn"
+    const form = (
       <Form className="container-fluid pt-2 product-form" onSubmit={this.handleSubmit}>
         <FormGroup>
-          <NameInput name={name} onChange={this.handleInputChange} />
+          <NameInput name={product.name} onChange={this.handleInputChange} />
         </FormGroup>
         <FormGroup>
-          <UnitType value={measurementType} onClick={this.handleMeasurementTypeChange}/>
+          <UnitType value={product.measurementType} onClick={this.handleMeasurementTypeChange}/>
+        </FormGroup>
+        <FormGroup>
+          <UnitTypeSelect
+            onChange={this.handleInputChange}
+            value={product.unitOfMeasurement}
+            items={units}
+             />
         </FormGroup>
         <FormGroup row className="justify-content-right">
-          {!!id &&
+          {!!product.id &&
             <Col>
               <Button type="button" color="danger" outline onClick={this.handleDelete}>Delete</Button>
             </Col> 
@@ -167,6 +206,8 @@ export default class ProductForm extends Component {
           </Col>
         </FormGroup>
       </Form>
-    )
+    );
+
+    return (this.state.done ? <Redirect to="/" /> : form);
   }
 }
