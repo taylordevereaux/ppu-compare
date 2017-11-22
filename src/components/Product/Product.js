@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
+import {
+  Container
+} from 'reactstrap';
 
 // Components
 import ProductDetails from './ProductDetails/ProductDetails';
@@ -40,20 +43,24 @@ export default class Product extends Component {
         
         <Route exact path="/Product/View/:id" render={({ match, history })  => {
           let product = DataSource.getProduct(match.params.id);
-          return (<ProductDetails {...product} history={history} />)
+          let entries = product.entries || [];
+          return (
+            <Container fluid className="mt-3">
+              <ProductDetails product={product} history={history} />
+              <div class="hr-divider">
+                <h3 class="hr-divider-content hr-divider-heading">
+                  Compare List
+                </h3>
+              </div>
+              <UnitEntryList entries={entries} history={history} />
+            </Container>
+          );
         }} />
 
         <Route exact path="/Product/Edit/:id" render={({ match, history }) => {
           let product = DataSource.getProduct(match.params.id);
-          return (<ProductForm  {...product} history={history}  />)
+          return (<ProductForm product={product} history={history}  />)
         }} />
-        
-        <Route exact path="/Product/New" render={({ match, history })  => {
-          let entries = DataSource.getEntries();
-          return (<UnitEntryList entries={entries} history={history} />);
-          {/* return (<UnitEntry {...entries[0]} history={history} />); */}
-        }} />
-
       </div>
     )
   }

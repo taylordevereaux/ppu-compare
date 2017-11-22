@@ -22,27 +22,7 @@ import {
 } from 'reactstrap';
 
 // Utilities
-import DataSource from '../../../utils/DataSource';
-
-
-//#region Static Data
-const UnitLists= ["volumn", "mass"];
-UnitLists["volumn"] = ["Litre (l)"
-  , "Millilitre (ml)"
-  , "Fluid ounce (oz. fl)"
-  , "Cup (cup)"
-  , "Tablespoon (tbsp)"
-  , "Teaspoon (tsp)"
-  , "Pint (pt)"
-  , "Quart (qt)"
-  , "Gallon (gal)"
-  ];
-  UnitLists["mass"] = ["Kilogram (kg)"
-  , "Grams (g)"
-  , "Pound (lb)"
-  , "Ounce (oz)"
-  ];
-//#endregion
+import DataSource, { UnitLists } from '../../../utils/DataSource';
 
 //#region Inline Functions
 function NameInput(props) {
@@ -51,7 +31,8 @@ function NameInput(props) {
       <Label for="name">Product Name</Label>
       <Input type="text" name="name" value={props.name}
         onChange={props.onChange}
-        placeholder="Name of the product to compare"/>
+        placeholder="Name of the product to compare"
+        valid={props.valid}/>
       <div className="invalid-feedback">
         Please provide a name for the product.
       </div>
@@ -117,16 +98,16 @@ export default class ProductForm extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      product: props.product
+      product: props.product,
+      errors: {}
     };
   }
   //#region  Helpers
 
   getErrors(product) {
     let errors = {};
-    if (isNaN(product.name)) errors.name = true;
-    if (product.measurementType === "") errors.measurementType = true;
-    if (product.unitOfMeasurement === "") errors.unitOfMeasurement = true;
+    if (product.name === "") errors.name = true;
+    // if (product.unitOfMeasurement === "") errors.unitOfMeasurement = true;
     return errors;
   }
   // SEts the property of the product to state.
@@ -162,7 +143,7 @@ export default class ProductForm extends Component {
   
   handleSubmit = (e) => {
     e.preventDefault();    
-    const product = this.getProduct();
+    const product = this.state.product;
     let errors = this.getErrors(product);    
    
     this.setState({errors});
@@ -182,10 +163,10 @@ export default class ProductForm extends Component {
     const form = (
       <Form className="container-fluid pt-2 product-form" onSubmit={this.handleSubmit}>
         <FormGroup>
-          <NameInput name={product.name} onChange={this.handleInputChange} />
+          <NameInput name={product.name} onChange={this.handleInputChange} valid={this.state.errors.name ? false : null} />
         </FormGroup>
         <FormGroup>
-          <UnitType value={product.measurementType} onClick={this.handleMeasurementTypeChange}/>
+          <UnitType value={product.measurementType} onClick={this.handleMeasurementTypeChange} />
         </FormGroup>
         <FormGroup>
           <UnitTypeSelect

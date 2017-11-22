@@ -28,15 +28,16 @@ class UnitEntryList extends Component {
   render() {
     const entries = this.props.entries;
     const sortKey = this.state.sortKey;
+    const history = this.props.history;
 
     const listItems = entries
       .map(x => Object.assign(x, { ppu: calculatePPU(x.price, x.units) }))
       .sort((a, b) => a[sortKey] < b[sortKey] ? -1 : a[sortKey] > b[sortKey] ? 1 : 0)
-      .map((entry) => <UnitEntryListItem key={entry.id.toString()} {...entry} history={this.props.history}/>);
+      .map((entry) => <UnitEntryListItem key={entry.id.toString()} {...entry} history={history}/>);
 
-    const header = (<UnitSortDropDown value={sortKey} onChange={this.handleSort} />);
+    const header = listItems.length ? (<UnitSortDropDown value={sortKey} onChange={this.handleSort} />) : null;
 
-    const footer = (<LinkButton to="/Entry/" text="Add Compare Item" />);
+    const footer = (<LinkButton to={history.location.pathname + "/Entry/"} text="Add Compare Item" />);
 
     return (
       <ListContainer header={header} listItems={listItems} footer={footer} emptyMessage="No items to compare, try adding a new one." />

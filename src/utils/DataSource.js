@@ -1,4 +1,23 @@
 
+// #region Static Data
+export const UnitLists = ["volumn", "mass"];
+UnitLists["volumn"] = ["Litre (l)"
+  , "Millilitre (ml)"
+  , "Fluid ounce (oz. fl)"
+  , "Cup (cup)"
+  , "Tablespoon (tbsp)"
+  , "Teaspoon (tsp)"
+  , "Pint (pt)"
+  , "Quart (qt)"
+  , "Gallon (gal)"
+  ];
+  UnitLists["mass"] = ["Kilogram (kg)"
+  , "Grams (g)"
+  , "Pound (lb)"
+  , "Ounce (oz)"
+  ];
+// #endregion
+
 // Gets a new ID based on the collection passed.
 function getNewId(items) {
   return !!items.length
@@ -100,19 +119,6 @@ class DataSource {
     removeItem(id, () => DataSource.getProducts(), (products) => setProducts(products));
   }
   // #endregion
-
-  // #region  Units 
-  static getUnits() {
-    return [
-      'Grams',
-      'Ounces',
-      'Pounds',
-      'Millilitres',
-      'Litres',
-      'Gallons'
-    ];
-  }
-  // #endregion 
 }
 
 export default DataSource;

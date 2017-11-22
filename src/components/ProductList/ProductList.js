@@ -16,7 +16,7 @@ export default class ProductList extends Component {
     const products = this.props.products;
 
     const listItems = products
-      .map((product) =>  <ProductListItem key={product.id.toString()} {...product} history={this.props.history} onRemove={this.handleRemove} />);
+      .map((product) =>  <ProductListItem key={product.id.toString()} product={product} history={this.props.history} />);
 
     const footer = (<LinkButton to="/Product/New" text="New Compare List" />);
 
