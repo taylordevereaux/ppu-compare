@@ -1,5 +1,10 @@
 A simple Price Per Unit calculator and compare tool.
 
+## Goal
+- Create product price per unit comparisons
+- Sort by prices products and even by store.
+- Easily find the best prices for all products for a current store.
+
 ##
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
