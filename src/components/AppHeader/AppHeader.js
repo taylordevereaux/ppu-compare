@@ -2,14 +2,19 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
 import { Container, Row, Col } from 'reactstrap';
+import Icon from '../Icon/Icon';
 
 // Theme
 import './AppHeader.css';
 
-
+// Application Header for the entire application.
 class AppHeader extends Component {
   constructor(props) {
     super(props);
+  }
+
+  static propTypes = {
+    title: PropTypes.string.isRequired
   }
 
   render() {
@@ -19,7 +24,7 @@ class AppHeader extends Component {
         <Container fluid className="AppHeader border border-left-0 border-top-0 border-right-0 border-secondary ">
           <Row>
             <Col sm={2}>
-              <span className="text-white m-0"><span className="icon icon-feather pr-1" />Pricey</span>
+              <span className="text-white m-0 font-italic"><Icon modifier="feather"/>Pricey</span>
             </Col>
             <Col sm={{ size: 4, offset: 2}} className="text-center">
             </Col>
@@ -28,10 +33,6 @@ class AppHeader extends Component {
       </Link>
     );
   }
-}
-
-AppHeader.propTypes = {
-  title: PropTypes.string.isRequired
 }
 
 export default AppHeader;

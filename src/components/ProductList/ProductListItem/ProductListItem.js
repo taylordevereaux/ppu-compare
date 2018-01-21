@@ -7,6 +7,7 @@ import {
   Col
 } from 'reactstrap';
 import ProductDetails from '../../Product/ProductDetails/ProductDetails';
+import Icon from '../../Icon/Icon';
 
 export default class ProductListItem extends Component {
   static propTypes = {

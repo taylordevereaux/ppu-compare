@@ -16,7 +16,7 @@ var jQuery = window.$ = window.jQuery = jquery;
 var Popper = window.Popper = popper;
 var Tether = window.Tether = tether;
 
- var theme = require('./theme/dist/toolkit.js');
+var theme = require('./theme/dist/toolkit.js');
 
 ReactDOM.render(<App />, document.getElementById('root'));
 registerServiceWorker();
