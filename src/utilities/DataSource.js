@@ -10,8 +10,11 @@ function getNewId(entries) {
 }
 
 function getEntries() {
-  let cache = JSON.parse(localStorage.getItem('entries')) || [];
-  return cache;
+  if (localStorage) {
+    let cache = JSON.parse(localStorage.getItem('entries')) || [];
+    return cache;
+  }
+  return [];
 }
 
 function setEntries(entries) {
