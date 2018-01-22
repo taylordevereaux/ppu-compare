@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Container, Row, Col } from 'reactstrap';
 
 // Theme
@@ -8,10 +8,6 @@ import './AppHeader.css';
 
 
 class AppHeader extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
 
     return (

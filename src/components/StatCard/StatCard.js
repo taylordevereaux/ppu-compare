@@ -3,10 +3,6 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 class StatCard extends Component {
-  constructor(props) {
-    super(props)
-  }
-  
   render() {
     return (
       <div className={classnames('statcard', this.props.className)}>

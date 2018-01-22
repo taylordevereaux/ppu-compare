@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import { Container, Row, Col } from 'reactstrap';
 // Components.
 import UnitEntryList from './components/UnitEntryList/UnitEntryList';
@@ -11,9 +11,9 @@ import DataSource from './utilities/DataSource';
 import './App.css';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
 
   render() {
     return (

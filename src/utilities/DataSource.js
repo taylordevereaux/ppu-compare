@@ -27,11 +27,13 @@ class DataSource {
     return getEntries();
   }
   static getEntry(id) {
+    // eslint-disable-next-line
     return DataSource.getEntries().find(x => x.id === parseInt(id));
   }
   static pushEntry(entry) {
     let entries = DataSource.getEntries();
     if (!!entry.id) {
+      // eslint-disable-next-line
       let existingEntry = entries.find(x => x.id === entry.id);
       existingEntry = Object.assign(existingEntry, entry);
     } else {

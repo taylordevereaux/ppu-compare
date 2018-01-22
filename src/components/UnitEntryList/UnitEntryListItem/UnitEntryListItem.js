@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { ListGroupItem, ListGroupItemText, Container, Row, Col } from 'reactstrap';
+import { ListGroupItem,  Container, Row, Col } from 'reactstrap';
 
 // Components
 import StatCard from '../../StatCard/StatCard';

@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import {
   InputGroup,
   InputGroupAddon,
-  InputGroupButton,
+  //InputGroupButton,
   Input,
   FormGroup,
   Form,
@@ -45,6 +45,7 @@ class UnitEntry extends Component {
   //#region Get Helpers
   getEntry() {
     return {
+      // eslint-disable-next-line
       id: parseInt(this.state.id),
       price: parseFloat(this.state.price),
       units: parseFloat(this.state.units),
@@ -124,7 +125,7 @@ class UnitEntry extends Component {
     const description =  this.state.description;
     const ppu = calculatePPU(price, units);
     // Unit TYpes
-    const measurement = this.state.measurement;
+    //const measurement = this.state.measurement;
 
     const colSettings = {
       sm: 12,
@@ -142,7 +143,7 @@ class UnitEntry extends Component {
         </FormGroup>
       );
     }
-
+    // eslint-disable-next-line
     function UnitDropDown(props) {
       return (
         <ButtonDropdown isOpen={props.isOpen} toggle={props.onToggle}>
