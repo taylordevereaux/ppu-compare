@@ -17,7 +17,7 @@ class App extends Component {
 
   render() {
     return (
-      <Router>
+      <Router basename="/ppu-compare">
         <div className="App">
           <AppHeader title="Pricey" />
           <Container fluid className="App-content justify-content-center">
