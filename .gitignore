@@ -4,7 +4,6 @@
 /.vscode/chrome
 
 # auto-generated
-/src/**/*.css
 
 # dependencies
 /node_modules
@@ -19,7 +18,6 @@
 /theme/node_modules
 /theme/dist
 /theme/docs
-/src/theme/dist
 
 # misc
 .DS_Store

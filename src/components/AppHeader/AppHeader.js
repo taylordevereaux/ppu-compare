@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Container, Row, Col } from 'reactstrap';
 import Icon from '../Icon/Icon';
 
@@ -9,10 +9,6 @@ import './AppHeader.css';
 
 // Application Header for the entire application.
 class AppHeader extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   static propTypes = {
     title: PropTypes.string.isRequired
   }

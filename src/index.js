@@ -12,11 +12,14 @@ import jquery from "jquery";
 import popper from 'popper.js';
 import tether from 'tether';
 // import theme from './theme/dist/toolkit.js';
+
+/* eslint-disable */
 var jQuery = window.$ = window.jQuery = jquery;
 var Popper = window.Popper = popper;
 var Tether = window.Tether = tether;
 
-var theme = require('./theme/dist/toolkit.js');
+ var theme = require('./theme/dist/toolkit.js');
+ /* eslint-enable */
 
 ReactDOM.render(<App />, document.getElementById('root'));
 registerServiceWorker();
