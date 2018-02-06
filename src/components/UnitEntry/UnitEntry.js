@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import {
   InputGroup,
   InputGroupAddon,
-  //InputGroupButton,
+  InputGroupButton,
   Input,
   FormGroup,
   Form,
@@ -68,7 +68,7 @@ class UnitEntry extends Component {
     const target = e.target;
     const value = target.value;
     const name = target.name;
-    
+
     if (!!this.state.errors[name]) {
       let errors = Object.assign({}, this.state.errors);
       delete errors[name];
@@ -77,6 +77,7 @@ class UnitEntry extends Component {
         errors
       })
     } else {
+      console.log('Good!');
       this.setState({ [name]:value });
     }
   }
@@ -92,7 +93,9 @@ class UnitEntry extends Component {
 
     if (isValid) {
       DataSource.pushEntry(entry);
-      this.setState({ done: true});
+      // this.setState({ done: true});
+      !!this.onSubmit && this.onSubmit(e, entry);
+      this.props.history.goBack();
     }
   }
   handleDelete = (e) => {
@@ -126,7 +129,7 @@ class UnitEntry extends Component {
     const description =  this.state.description;
     const ppu = calculatePPU(price, units);
     // Unit TYpes
-    //const measurement = this.state.measurement;
+    const measurement = this.state.measurement;
 
     const colSettings = {
       sm: 12,
@@ -135,109 +138,77 @@ class UnitEntry extends Component {
       xl:  12
     }
 
-    function ColWithSettings(props) {
-      return (
-        <Col {...colSettings} className={classnames(props.className)} >
-          {props.children}
-        </Col>
-      );
-    }
-
-    function FormGroupRow(props) {
-      return (
-        <FormGroup row className="justify-content-center">
-          {props.children}
-        </FormGroup>
-      );
-    }
-
-    function Header() {
-      return (
-        <FormGroupRow>
-          <ColWithSettings className="mt-2" >
-            <div className="display-4 text-center">${ppu}</div>
-          </ColWithSettings>
-        </FormGroupRow>
-      );
-    }
-
     // eslint-disable-next-line
-    function UnitDropDown(props) {
-      return (
-        <ButtonDropdown isOpen={props.isOpen} toggle={props.onToggle}>
-          <DropdownToggle caret color="secondary" value={props.value}>
-            {props.text}
-          </DropdownToggle>
-          <DropdownMenu>
-            {DataSource.getUnits().map(x => (<DropdownItem key={x} value={x} >{x}</DropdownItem>))}
-          </DropdownMenu>
-        </ButtonDropdown>
-      );
-    }
+    // function UnitDropDown(props) {
+    //   return (
+    //     <ButtonDropdown isOpen={props.isOpen} toggle={props.onToggle}>
+    //       <DropdownToggle caret color="secondary" value={props.value}>
+    //         {props.text}
+    //       </DropdownToggle>
+    //       <DropdownMenu>
+    //         {DataSource.getUnits().map(x => (<DropdownItem key={x} value={x} >{x}</DropdownItem>))}
+    //       </DropdownMenu>
+    //     </ButtonDropdown>
+    //   );
+    // }
 
-    function PriceInput(props) {
-      return (
-        <ColWithSettings>
-          <Label for="price">Price of Product</Label>
-          <InputGroup>
-            <InputGroupAddon>$</InputGroupAddon>
-            <Input type="number" name="price" value={props.value}
-              placeholder="enter the price"
-              onChange={props.onChange}
-              valid={props.valid} />
-          </InputGroup>
-          <div className="invalid-feedback">
-            Please provide a price for the item.
-          </div>
-        </ColWithSettings>
-      );
-    }
-
-    function UnitInput(props) {
-      return (
-        <ColWithSettings>
-          <Label for="units">Number of Units</Label>
-          <InputGroup>
-            <InputGroupAddon>#</InputGroupAddon>
-            <Input type="number" name="units" value={props.value}
-              placeholder="enter the units"
-              onChange={props.onChange}
-              valid={props.valid} />
-            <InputGroupButton>
-              <UnitDropDown {...measurement} onToggle={props.onToggle} />
-            </InputGroupButton>
-          </InputGroup>
-        </ColWithSettings>
-      );
-    }
-
+    // function PriceInput(props) {
+    //   return (
+        
+    //   );
+    // }
 
     const form = (
       <Form className="container-fluid unit-entry pt-2" onSubmit={this.handleSubmit}>
-        <Header />
-        <FormGroupRow>
-          <PriceInput value={price} onChange={this.handleInputsChange} valid={this.state.errors.price ? false : null} />
-        </FormGroupRow>
-        <FormGroupRow>
-          <UnitInput value={units} onChange={this.handleInputsChange} valid={this.state.errors.units ? false : null} onToggle={this.handleToggle} />
-        </FormGroupRow>
-        <FormGroupRow>
-          <ColWithSettings>
-            <Label for="location">Location of Product</Label>
-            <Input type="text" name="location" value={location}
-              placeholder="enter the location"
-              onChange={this.handleInputsChange} />
-          </ColWithSettings>
-        </FormGroupRow>
         <FormGroup row className="justify-content-center">
           <Col {...colSettings}>
-            <Label for="description">Additional Details</Label>
-            <Input type="textarea" name="description" value={description}
-              placeholder="enter additional details"
+            <div className="display-4 text-center">${ppu}</div>
+          </Col>
+        </FormGroup>
+        <FormGroup row className="justify-content-center">
+          <Col {...colSettings}>
+            <Label for="price" size="lg">Product</Label>
+            <InputGroup>
+              <InputGroupAddon>$</InputGroupAddon>
+              <Input type="number" name="price" value={price}
+                placeholder="Product Price"
+                onChange={this.handleInputsChange}
+                valid={this.state.errors.price ? false : null} />
+            </InputGroup>
+            <div className="invalid-feedback">
+              Please provide a price for the item.
+            </div>
+          </Col>
+        </FormGroup>
+        <FormGroup row className="justify-content-center">
+          <Col {...colSettings}>
+            <InputGroup>
+              <InputGroupAddon>#</InputGroupAddon>
+              <Input type="number" name="units" value={units}
+                placeholder="Number of Units"
+                onChange={this.handleInputsChange}
+                valid={this.state.errors.units ? false : null} />
+              <InputGroupButton>
+                {/* <UnitDropDown {...measurement} onToggle={props.onToggle} /> */}
+              </InputGroupButton>
+            </InputGroup>
+          </Col>
+        </FormGroup>
+        <FormGroup row className="justify-content-center">
+          <Col {...colSettings}>
+            <Label for="location" size="lg">Additional details</Label>
+            <Input type="text" name="location" value={location}
+              placeholder="Store or location"
               onChange={this.handleInputsChange} />
           </Col>
         </FormGroup>
-        {/* Footer Actions */}
+        <FormGroup row className="justify-content-center">
+          <Col {...colSettings}>
+            <Input type="textarea" name="description" value={description}
+              placeholder="Comments"
+              onChange={this.handleInputsChange} />
+          </Col>
+        </FormGroup>
         <FormGroup row className="justify-content-right">
           {!!id &&
             <Col>
@@ -267,6 +238,8 @@ UnitEntry.propTypes = {
   units: PropTypes.number,
   location: PropTypes.string,
   desciption: PropTypes.string,
+  // Events
+  onSubmit: PropTypes.func,
   // History from React-Router
   history: PropTypes.object.isRequired
 }

@@ -26,6 +26,10 @@ export default class Product extends Component {
   //   measurementType: "volumn",
   //   unitOfMeasurement: "litres"
   // }
+  
+  handleEntrySubmit = (e, entry) => {
+    console.log(entry);
+  }
 
   render() {
 
@@ -41,18 +45,19 @@ export default class Product extends Component {
 
         <Route exact path="/Product/New" render={({ match, history }) => <ProductForm history={history} />} />
         
-        <Route exact path="/Product/View/:id" render={({ match, history })  => {
+        <Route path="/Product/View/:id" render={({ match, history })  => {
           let product = DataSource.getProduct(match.params.id);
           let entries = product.entries || [];
           return (
             <Container fluid className="mt-3">
               <ProductDetails product={product} history={history} />
-              <div class="hr-divider">
-                <h3 class="hr-divider-content hr-divider-heading">
+              <div className="hr-divider">
+                <h3 className="hr-divider-content hr-divider-heading">
                   Compare List
                 </h3>
               </div>
-              <UnitEntryList entries={entries} history={history} />
+              <Route exact path="/Product/View/:id" render={({ match, history })  => <UnitEntryList entries={entries} history={history} />} />
+              <Route exact path="/Product/View/:id/Entry" render={({ match, history })  => <UnitEntry history={history} onSubmit={this.handleEntrySubmit} /> } />
             </Container>
           );
         }} />

@@ -12,7 +12,7 @@ import Icon from '../../Icon/Icon';
 export default class ProductListItem extends Component {
   static propTypes = {
     product: PropTypes.shape({
-      id: PropTypes.string,
+      id: PropTypes.number,
       name: PropTypes.string,
       measurementType: PropTypes.string,
       unitOfMeasurement: PropTypes.string
@@ -30,9 +30,9 @@ export default class ProductListItem extends Component {
     const product = this.props.product;
     return (
       <ListGroupItem tag="a" action href="#" onClick={this.handleClick} >
-        <div class="d-flex w-100 justify-content-between">
-          <h5 class="mb-1">{product.name}</h5>
-          <small class="text-uppercase">{product.unitOfMeasurement}</small>
+        <div className="d-flex w-100 justify-content-between">
+          <h5 className="mb-1">{product.name}</h5>
+          <small className="text-uppercase">{product.unitOfMeasurement}</small>
         </div>
       </ListGroupItem>
     )

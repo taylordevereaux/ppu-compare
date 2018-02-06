@@ -35,12 +35,24 @@ class UnitEntryList extends Component {
       .sort((a, b) => a[sortKey] < b[sortKey] ? -1 : a[sortKey] > b[sortKey] ? 1 : 0)
       .map((entry) => <UnitEntryListItem key={entry.id.toString()} {...entry} history={history}/>);
 
-    const header = listItems.length ? (<UnitSortDropDown value={sortKey} onChange={this.handleSort} />) : null;
+    const header = listItems.length ? (<UnitSortDropDown value={sortKey} onChange={this.handleSort} />) : (<div className="m-3" />);
+    
+    const body = !!listItems.length ? (<ListGroup>{listItems}</ListGroup>) : (<p className="text-center">No items to compare, try adding a new one.</p>);
 
     const footer = (<LinkButton to={history.location.pathname + "/Entry/"} text="Add Compare Item" />);
 
     return (
-      <ListContainer header={header} listItems={listItems} footer={footer} emptyMessage="No items to compare, try adding a new one." />
+      <div>
+        <div className="d-flex justify-content-end">
+          {header}
+        </div>
+        <div className="d-flex flex-column">
+          {body}
+        </div>
+        <div className="d-flex justify-content-center">
+          {footer}
+        </div>
+      </div>
     );
   }
 }

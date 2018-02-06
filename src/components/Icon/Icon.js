@@ -12,3 +12,4 @@ Icon.propTypes = {
   className: PropTypes.string
 }
 
+  
